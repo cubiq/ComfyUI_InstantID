@@ -123,7 +123,7 @@ class CrossAttentionPatch:
                     mask_downsample = mask_downsample.repeat(len(cond_or_uncond), 1, 1)
                     mask_downsample = mask_downsample.view(mask_downsample.shape[0], -1, 1).repeat(1, 1, out.shape[2])
 
-                    out_ip = out_ip * mask_downsample
+                    out_iid = out_iid * mask_downsample
 
                 out = out + out_iid
 
