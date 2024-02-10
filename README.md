@@ -20,7 +20,7 @@ Download or `git clone` this repository into the `ComfyUI/custom_nodes/` directo
 
 InstantID requires `insightface`, you need to add it to your libraries together with `onnxruntime` and `onnxruntime-gpu`.
 
-The InsightFace model is **antelopev2** (not the classic buffalo_l). Donwload the models (for example from [here](https://drive.google.com/file/d/18wEUfMNohBJ4K3Ly5wpTejPfDzp-8fI8/view?usp=sharing)) and place them in the `ComfyUI/models/insightface/models/antelopev2` directory.
+The InsightFace model is **antelopev2** (not the classic buffalo_l). Download the models (for example from [here](https://drive.google.com/file/d/18wEUfMNohBJ4K3Ly5wpTejPfDzp-8fI8/view?usp=sharing) or [here](https://huggingface.co/MonsterMMORPG/tools/tree/main)) and place them in the `ComfyUI/models/insightface/models/antelopev2` directory.
 
 The **main model** can be downloaded from [HuggingFace](https://huggingface.co/InstantX/InstantID/resolve/main/ip-adapter.bin?download=true) and should be placed into the `ComfyUI/models/instantid` directory. (Note that the model is called *ip_adapter* as it is based on the [IPAdapter](https://github.com/tencent-ailab/IP-Adapter) models).
 
