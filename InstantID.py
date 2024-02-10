@@ -409,12 +409,19 @@ class ApplyInstantID:
                 set_model_patch_replace(work_model, patch_kwargs, ("middle", 0, index))
                 patch_kwargs["number"] += 1
 
-        pos = positive.copy()
-        print(pos[0][1].keys())
-        pos[0][1]['cross_attn_controlnet'] = image_prompt_embeds.cpu()
+        pos = []
+        for t in positive:
+            n = [t[0], t[1].copy()]
+            n[1]['cross_attn_controlnet'] = image_prompt_embeds.cpu()
+            pos.append(n)
+        #pos[0][1]['cross_attn_controlnet'] = image_prompt_embeds.cpu()
         
-        neg = negative.copy()
-        neg[0][1]['cross_attn_controlnet'] = uncond_image_prompt_embeds.cpu()
+        neg = []
+        for t in negative:
+            n = [t[0], t[1].copy()]
+            n[1]['cross_attn_controlnet'] = uncond_image_prompt_embeds.cpu()
+            neg.append(n)
+        #neg[0][1]['cross_attn_controlnet'] = uncond_image_prompt_embeds.cpu()
 
         return(work_model, pos, neg, )
 
