@@ -1,0 +1,3 @@
+insightface
+onnxruntime
+onnxruntime-gpu
