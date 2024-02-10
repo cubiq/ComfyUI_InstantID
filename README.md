@@ -18,7 +18,7 @@ In the `examples` directory you'll find some basic workflows.
 
 Download or `git clone` this repository into the `ComfyUI/custom_nodes/` directory. I guess the Manager will soon have this added to the list.
 
-InstantID requires `insightface`, you need to add it to your libraries together with `onnxruntine` and `onnxruntime-gpu`.
+InstantID requires `insightface`, you need to add it to your libraries together with `onnxruntime` and `onnxruntime-gpu`.
 
 The **main model** can be downloaded from [HuggingFace](https://huggingface.co/InstantX/InstantID/resolve/main/ip-adapter.bin?download=true) and should be placed into the `ComfyUI/models/instantid` directory. (Note that the model is called *ip_adapter* as it is based on the [IPAdapter](https://github.com/tencent-ailab/IP-Adapter) models).
 
