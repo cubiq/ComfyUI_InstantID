@@ -347,6 +347,10 @@ class ApplyInstantID:
             raise Exception('Feature Extractor: No face detected.')
 
         clip_embed = face_embed
+        # InstantID works better with averaged embeds (TODO:needs testing)
+        if clip_embed.shape[0] > 1:
+            clip_embed = torch.mean(clip_embed, dim=0).unsqueeze(0)
+
         clip_embed_zeroed = torch.zeros_like(clip_embed)
 
         clip_embeddings_dim = face_embed.shape[-1]
