@@ -195,13 +195,12 @@ def _set_model_patch_replace(model, patch_kwargs, key):
     to = model.model_options["transformer_options"]
     if "patches_replace" not in to:
         to["patches_replace"] = {}
-    if "attn2" not in to["patches_replace"]:
-        to["patches_replace"]["attn2"] = {}
-    if key not in to["patches_replace"]["attn2"] or not isinstance(to["patches_replace"]["attn2"][key], CrossAttentionPatchIID):
-        patch = CrossAttentionPatchIID(**patch_kwargs)
-        to["patches_replace"]["attn2"][key] = patch
+    if "attn2_iid" not in to["patches_replace"]:
+        to["patches_replace"]["attn2_iid"] = {}
+    if key not in to["patches_replace"]["attn2_iid"] or not isinstance(to["patches_replace"]["attn2_iid"][key], CrossAttentionPatchIID):
+        to["patches_replace"]["attn2_iid"][key] = CrossAttentionPatchIID(**patch_kwargs)
     else:
-        to["patches_replace"]["attn2"][key].set_new_condition(**patch_kwargs)
+        to["patches_replace"]["attn2_iid"][key].set_new_condition(**patch_kwargs)
 
 class InstantIDModelLoader:
     @classmethod
