@@ -51,6 +51,7 @@ def draw_kps(image_pil, kps, color_list=[(255,0,0), (0,255,0), (0,0,255), (255,2
     out_img_pil = PIL.Image.fromarray(out_img.astype(np.uint8))
     return out_img_pil
 
+# All this mess to keep compatibility with IPAdapter, it will be helpful in case we want AnimateDiff to work with InstantID
 class CrossAttentionPatch:
     # forward for patching
     def __init__(self, weight, ipadapter, number, cond, uncond, weight_type="original", mask=None, sigma_start=0.0, sigma_end=1.0, unfold_batch=False):
