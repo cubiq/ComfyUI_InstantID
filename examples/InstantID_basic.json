@@ -1,6 +1,6 @@
 {
-  "last_node_id": 67,
-  "last_link_id": 221,
+  "last_node_id": 66,
+  "last_link_id": 220,
   "nodes": [
     {
       "id": 11,
@@ -110,7 +110,7 @@
         "1": 610.4592895507812
       },
       "flags": {},
-      "order": 12,
+      "order": 11,
       "mode": 0,
       "inputs": [
         {
@@ -168,7 +168,7 @@
         "1": 46
       },
       "flags": {},
-      "order": 11,
+      "order": 10,
       "mode": 0,
       "inputs": [
         {
@@ -208,7 +208,7 @@
         "1": 266
       },
       "flags": {},
-      "order": 9,
+      "order": 8,
       "mode": 0,
       "inputs": [
         {
@@ -249,7 +249,7 @@
         {
           "name": "image_kps",
           "type": "IMAGE",
-          "link": 221
+          "link": null
         },
         {
           "name": "mask",
@@ -307,7 +307,7 @@
         "1": 128.62518310546875
       },
       "flags": {},
-      "order": 7,
+      "order": 6,
       "mode": 0,
       "inputs": [
         {
@@ -346,7 +346,7 @@
         "1": 112.35245513916016
       },
       "flags": {},
-      "order": 8,
+      "order": 7,
       "mode": 0,
       "inputs": [
         {
@@ -422,84 +422,6 @@
       ]
     },
     {
-      "id": 13,
-      "type": "LoadImage",
-      "pos": [
-        290,
-        70
-      ],
-      "size": {
-        "0": 210,
-        "1": 314
-      },
-      "flags": {},
-      "order": 5,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            214
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoadImage"
-      },
-      "widgets_values": [
-        "joseph-gonzalez-iFgRcqHznqg-unsplash.jpg",
-        "image"
-      ]
-    },
-    {
-      "id": 67,
-      "type": "LoadImage",
-      "pos": [
-        592,
-        781
-      ],
-      "size": {
-        "0": 210,
-        "1": 314
-      },
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            221
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoadImage"
-      },
-      "widgets_values": [
-        "miranda.jpg",
-        "image"
-      ]
-    },
-    {
       "id": 3,
       "type": "KSampler",
       "pos": [
@@ -511,7 +433,7 @@
         "1": 262
       },
       "flags": {},
-      "order": 10,
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
@@ -549,13 +471,52 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        1631591431,
+        1631591050,
         "fixed",
         30,
         4.5,
         "ddpm",
         "karras",
         1
+      ]
+    },
+    {
+      "id": 13,
+      "type": "LoadImage",
+      "pos": [
+        290,
+        70
+      ],
+      "size": {
+        "0": 210,
+        "1": 314
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            214
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "joseph-gonzalez-iFgRcqHznqg-unsplash.jpg",
+        "image"
       ]
     }
   ],
@@ -687,14 +648,6 @@
       3,
       0,
       "MODEL"
-    ],
-    [
-      221,
-      67,
-      0,
-      60,
-      7,
-      "IMAGE"
     ]
   ],
   "groups": [],

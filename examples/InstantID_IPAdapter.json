@@ -1,6 +1,6 @@
 {
-  "last_node_id": 67,
-  "last_link_id": 221,
+  "last_node_id": 71,
+  "last_link_id": 226,
   "nodes": [
     {
       "id": 11,
@@ -102,15 +102,15 @@
       "id": 15,
       "type": "PreviewImage",
       "pos": [
-        1670,
-        300
+        1910,
+        290
       ],
       "size": {
         "0": 584.0855712890625,
         "1": 610.4592895507812
       },
       "flags": {},
-      "order": 12,
+      "order": 15,
       "mode": 0,
       "inputs": [
         {
@@ -160,15 +160,15 @@
       "id": 8,
       "type": "VAEDecode",
       "pos": [
-        1670,
-        210
+        1910,
+        200
       ],
       "size": {
         "0": 210,
         "1": 46
       },
       "flags": {},
-      "order": 11,
+      "order": 14,
       "mode": 0,
       "inputs": [
         {
@@ -197,105 +197,6 @@
       }
     },
     {
-      "id": 60,
-      "type": "ApplyInstantID",
-      "pos": [
-        910,
-        210
-      ],
-      "size": {
-        "0": 315,
-        "1": 266
-      },
-      "flags": {},
-      "order": 9,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "instantid",
-          "type": "INSTANTID",
-          "link": 197
-        },
-        {
-          "name": "insightface",
-          "type": "FACEANALYSIS",
-          "link": 198
-        },
-        {
-          "name": "control_net",
-          "type": "CONTROL_NET",
-          "link": 199
-        },
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 214
-        },
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 206
-        },
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 203
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 204
-        },
-        {
-          "name": "image_kps",
-          "type": "IMAGE",
-          "link": 221
-        },
-        {
-          "name": "mask",
-          "type": "MASK",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            220
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "POSITIVE",
-          "type": "CONDITIONING",
-          "links": [
-            200
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "NEGATIVE",
-          "type": "CONDITIONING",
-          "links": [
-            201
-          ],
-          "shape": 3,
-          "slot_index": 2
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "ApplyInstantID"
-      },
-      "widgets_values": [
-        0.8,
-        0,
-        1
-      ]
-    },
-    {
       "id": 39,
       "type": "CLIPTextEncode",
       "pos": [
@@ -307,7 +208,7 @@
         "1": 128.62518310546875
       },
       "flags": {},
-      "order": 7,
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
@@ -346,7 +247,7 @@
         "1": 112.35245513916016
       },
       "flags": {},
-      "order": 8,
+      "order": 10,
       "mode": 0,
       "inputs": [
         {
@@ -461,28 +362,255 @@
       ]
     },
     {
-      "id": 67,
-      "type": "LoadImage",
+      "id": 60,
+      "type": "ApplyInstantID",
       "pos": [
-        592,
-        781
+        910,
+        210
       ],
       "size": {
-        "0": 210,
-        "1": 314
+        "0": 315,
+        "1": 266
+      },
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "instantid",
+          "type": "INSTANTID",
+          "link": 197
+        },
+        {
+          "name": "insightface",
+          "type": "FACEANALYSIS",
+          "link": 198
+        },
+        {
+          "name": "control_net",
+          "type": "CONTROL_NET",
+          "link": 199
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 214
+        },
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 206
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 203
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 204
+        },
+        {
+          "name": "image_kps",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            225
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "POSITIVE",
+          "type": "CONDITIONING",
+          "links": [
+            200
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "NEGATIVE",
+          "type": "CONDITIONING",
+          "links": [
+            201
+          ],
+          "shape": 3,
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ApplyInstantID"
+      },
+      "widgets_values": [
+        0.8,
+        0,
+        1
+      ]
+    },
+    {
+      "id": 68,
+      "type": "IPAdapterModelLoader",
+      "pos": [
+        830,
+        -500
+      ],
+      "size": {
+        "0": 315,
+        "1": 58
       },
       "flags": {},
       "order": 6,
       "mode": 0,
       "outputs": [
         {
-          "name": "IMAGE",
-          "type": "IMAGE",
+          "name": "IPADAPTER",
+          "type": "IPADAPTER",
           "links": [
-            221
+            222
           ],
           "shape": 3,
           "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "IPAdapterModelLoader"
+      },
+      "widgets_values": [
+        "ip-adapter-plus_sdxl_vit-h.safetensors"
+      ]
+    },
+    {
+      "id": 70,
+      "type": "CLIPVisionLoader",
+      "pos": [
+        830,
+        -390
+      ],
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "CLIP_VISION",
+          "type": "CLIP_VISION",
+          "links": [
+            223
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPVisionLoader"
+      },
+      "widgets_values": [
+        "IPAdapter_image_encoder_sd15.safetensors"
+      ]
+    },
+    {
+      "id": 69,
+      "type": "IPAdapterApply",
+      "pos": [
+        1243,
+        -287
+      ],
+      "size": {
+        "0": 315,
+        "1": 258
+      },
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "ipadapter",
+          "type": "IPADAPTER",
+          "link": 222
+        },
+        {
+          "name": "clip_vision",
+          "type": "CLIP_VISION",
+          "link": 223,
+          "slot_index": 1
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 224,
+          "slot_index": 2
+        },
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 225
+        },
+        {
+          "name": "attn_mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            226
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "IPAdapterApply"
+      },
+      "widgets_values": [
+        0.45,
+        0,
+        "original",
+        0,
+        1,
+        false
+      ]
+    },
+    {
+      "id": 71,
+      "type": "LoadImage",
+      "pos": [
+        830,
+        -280
+      ],
+      "size": [
+        315,
+        314
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            224
+          ],
+          "shape": 3
         },
         {
           "name": "MASK",
@@ -495,7 +623,7 @@
         "Node name for S&R": "LoadImage"
       },
       "widgets_values": [
-        "miranda.jpg",
+        "SDXL_00624_.png",
         "image"
       ]
     },
@@ -503,21 +631,21 @@
       "id": 3,
       "type": "KSampler",
       "pos": [
-        1300,
-        210
+        1540,
+        200
       ],
       "size": {
         "0": 315,
         "1": 262
       },
       "flags": {},
-      "order": 10,
+      "order": 13,
       "mode": 0,
       "inputs": [
         {
           "name": "model",
           "type": "MODEL",
-          "link": 220
+          "link": 226
         },
         {
           "name": "positive",
@@ -549,7 +677,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        1631591431,
+        1631591432,
         "fixed",
         30,
         4.5,
@@ -681,20 +809,44 @@
       "IMAGE"
     ],
     [
-      220,
+      222,
+      68,
+      0,
+      69,
+      0,
+      "IPADAPTER"
+    ],
+    [
+      223,
+      70,
+      0,
+      69,
+      1,
+      "CLIP_VISION"
+    ],
+    [
+      224,
+      71,
+      0,
+      69,
+      2,
+      "IMAGE"
+    ],
+    [
+      225,
       60,
+      0,
+      69,
+      3,
+      "MODEL"
+    ],
+    [
+      226,
+      69,
       0,
       3,
       0,
       "MODEL"
-    ],
-    [
-      221,
-      67,
-      0,
-      60,
-      7,
-      "IMAGE"
     ]
   ],
   "groups": [],
