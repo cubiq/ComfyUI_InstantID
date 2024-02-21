@@ -21,7 +21,11 @@ else:
     current_paths, _ = folder_paths.folder_names_and_paths["instantid"]
 folder_paths.folder_names_and_paths["instantid"] = (current_paths, folder_paths.supported_pt_extensions)
 
-INSIGHTFACE_DIR = os.path.join(folder_paths.models_dir, "insightface")
+if "insightface" in folder_paths.folder_names_and_paths:
+    INSIGHTFACE_DIR = folder_paths.folder_names_and_paths["insightface"][0][0]
+else:
+    INSIGHTFACE_DIR = os.path.join(folder_paths.models_dir, "insightface")
+
 
 def draw_kps(image_pil, kps, color_list=[(255,0,0), (0,255,0), (0,0,255), (255,255,0), (255,0,255)]):
     stickwidth = 4
