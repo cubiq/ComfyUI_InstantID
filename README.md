@@ -14,6 +14,14 @@ In the `examples` directory you'll find some basic workflows.
 
 ![workflow](examples/instantid_basic_workflow.jpg)
 
+## Video Tutorial
+
+<a href="https://youtu.be/wMLiGhogOPE" target="_blank">
+ <img src="https://img.youtube.com/vi/wMLiGhogOPE/hqdefault.jpg" alt="Watch the video" />
+</a>
+
+**:movie_camera: [Introduction to InstantID features](https://youtu.be/wMLiGhogOPE)**
+
 ## Installation
 
 **Upgrade ComfyUI to the latest version!**
