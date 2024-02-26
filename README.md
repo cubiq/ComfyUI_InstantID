@@ -6,6 +6,8 @@ This extension differs from the many already available as it doesn't use *diffus
 
 ## Important updates
 
+- **2024/02/26:** Fixed a small but nasty bug. Results will be different and you may need to lower the CFG.
+
 - **2024/02/20:** I refactored the nodes so they are hopefully easier to use. **This is a breaking update**, the previous workflows won't work anymore.
 
 ## Basic Workflow
@@ -20,7 +22,7 @@ In the `examples` directory you'll find some basic workflows.
  <img src="https://img.youtube.com/vi/wMLiGhogOPE/hqdefault.jpg" alt="Watch the video" />
 </a>
 
-**:movie_camera: [Introduction to InstantID features](https://youtu.be/wMLiGhogOPE)**
+** :movie_camera: [Introduction to InstantID features](https://youtu.be/wMLiGhogOPE)**
 
 ## Installation
 
