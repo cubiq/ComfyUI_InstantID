@@ -385,6 +385,15 @@ class FaceKeypointsPreprocessor:
 
         return (face_kps,)
 
+def add_noise(image, factor):
+    seed = int(torch.sum(image).item()) % 1000000007
+    torch.manual_seed(seed)
+    mask = (torch.rand_like(image) < factor).float()
+    noise = torch.rand_like(image)
+    noise = torch.zeros_like(image) * (1-mask) + noise * mask
+    
+    return factor*noise
+
 class ApplyInstantID:
     @classmethod
     def INPUT_TYPES(s):
@@ -412,7 +421,7 @@ class ApplyInstantID:
     FUNCTION = "apply_instantid"
     CATEGORY = "InstantID"
 
-    def apply_instantid(self, instantid, insightface, control_net, image, model, positive, negative, start_at, end_at, weight=.8, ip_weight=None, cn_strength=None, image_kps=None, mask=None):
+    def apply_instantid(self, instantid, insightface, control_net, image, model, positive, negative, start_at, end_at, weight=.8, ip_weight=None, cn_strength=None, noise=0.35, image_kps=None, mask=None):
         self.dtype = torch.float16 if comfy.model_management.should_use_fp16() else torch.float32
         self.device = comfy.model_management.get_torch_device()
 
@@ -439,7 +448,13 @@ class ApplyInstantID:
         if clip_embed.shape[0] > 1:
             clip_embed = torch.mean(clip_embed, dim=0).unsqueeze(0)
 
-        clip_embed_zeroed = torch.zeros_like(clip_embed) # torch.rand_like(clip_embed)
+        if noise > 0:
+            seed = int(torch.sum(clip_embed).item()) % 1000000007
+            torch.manual_seed(seed)
+            clip_embed_zeroed = noise * torch.rand_like(clip_embed)
+            #clip_embed_zeroed = add_noise(clip_embed, noise)
+        else:
+            clip_embed_zeroed = torch.zeros_like(clip_embed)
 
         clip_embeddings_dim = face_embed.shape[-1]
 
@@ -554,6 +569,7 @@ class ApplyInstantIDAdvanced(ApplyInstantID):
                 "cn_strength": ("FLOAT", {"default": .8, "min": 0.0, "max": 10.0, "step": 0.01, }),
                 "start_at": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.001, }),
                 "end_at": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 1.0, "step": 0.001, }),
+                "noise": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.1, }),
             },
             "optional": {
                 "image_kps": ("IMAGE",),
@@ -573,6 +589,7 @@ class InstantIDAttentionPatch:
                 "weight": ("FLOAT", {"default": 1.0, "min": -1.0, "max": 3.0, "step": 0.01, }),
                 "start_at": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.001, }),
                 "end_at": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 1.0, "step": 0.001, }),
+                "noise": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.1, }),
             },
             "optional": {
                 "mask": ("MASK",),
@@ -583,7 +600,7 @@ class InstantIDAttentionPatch:
     FUNCTION = "patch_attention"
     CATEGORY = "InstantID"
 
-    def patch_attention(self, instantid, insightface, image, model, weight, start_at, end_at, mask=None):       
+    def patch_attention(self, instantid, insightface, image, model, weight, start_at, end_at, noise=0.0, mask=None):       
         self.dtype = torch.float16 if comfy.model_management.should_use_fp16() else torch.float32
         self.device = comfy.model_management.get_torch_device()
 
@@ -601,7 +618,12 @@ class InstantIDAttentionPatch:
         if clip_embed.shape[0] > 1:
             clip_embed = torch.mean(clip_embed, dim=0).unsqueeze(0)
 
-        clip_embed_zeroed = torch.zeros_like(clip_embed) # torch.rand_like(clip_embed)
+        if noise > 0:
+            seed = int(torch.sum(clip_embed).item()) % 1000000007
+            torch.manual_seed(seed)
+            clip_embed_zeroed = noise * torch.rand_like(clip_embed)
+        else:
+            clip_embed_zeroed = torch.zeros_like(clip_embed)
 
         clip_embeddings_dim = face_embed.shape[-1]
 
