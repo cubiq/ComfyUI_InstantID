@@ -376,7 +376,7 @@ class FaceKeypointsPreprocessor:
     CATEGORY = "InstantID"
 
     def preprocess_image(self, faceanalysis, image):
-        face_kps = extractFeatures(faceanalysis, image[0].unsqueeze(0), extract_kps=True)
+        face_kps = extractFeatures(faceanalysis, image, extract_kps=True)
 
         if face_kps is None:
             face_kps = torch.zeros_like(image)
@@ -437,7 +437,8 @@ class ApplyInstantID:
         if face_embed is None:
             raise Exception('Reference Image: No face detected.')
 
-        face_kps = extractFeatures(insightface, image_kps[0].unsqueeze(0) if image_kps is not None else image[0].unsqueeze(0), extract_kps=True)
+        # if no keypoints image is provided, use the image itself (only the first one in the batch)
+        face_kps = extractFeatures(insightface, image_kps if image_kps is not None else image[0].unsqueeze(0), extract_kps=True)
 
         if face_kps is None:
             face_kps = torch.zeros_like(image) if image_kps is None else image_kps

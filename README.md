@@ -58,7 +58,7 @@ The person is posed based on the keypoints generated from the reference image. Y
 
 ## Noise Injection
 
-The default InstantID implementation seems to really burn the image, I find that by injecting noise to the negative embeds we can mitigate the effect and also increase the likeliness to the reference. The default Apply InstantID node automatically injects 35% noise, if you want to fine tune the effect you use the Advanced InstantID node.
+The default InstantID implementation seems to really burn the image, I find that by injecting noise to the negative embeds we can mitigate the effect and also increase the likeliness to the reference. The default Apply InstantID node automatically injects 35% noise, if you want to fine tune the effect you can use the Advanced InstantID node.
 
 This is still experimental and may change in the future.
 
