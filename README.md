@@ -6,6 +6,10 @@ This extension differs from the many already available as it doesn't use *diffus
 
 ## Important updates
 
+- **2024/02/27:** Added [noise injection](#noise-injection) in the negative embeds.
+
+- **2024/02/26:** Fixed a small but nasty bug. Results will be different and you may need to lower the CFG.
+
 - **2024/02/20:** I refactored the nodes so they are hopefully easier to use. **This is a breaking update**, the previous workflows won't work anymore.
 
 ## Basic Workflow
@@ -14,11 +18,19 @@ In the `examples` directory you'll find some basic workflows.
 
 ![workflow](examples/instantid_basic_workflow.jpg)
 
+## Video Tutorial
+
+<a href="https://youtu.be/wMLiGhogOPE" target="_blank">
+ <img src="https://img.youtube.com/vi/wMLiGhogOPE/hqdefault.jpg" alt="Watch the video" />
+</a>
+
+** :movie_camera: [Introduction to InstantID features](https://youtu.be/wMLiGhogOPE)**
+
 ## Installation
 
 **Upgrade ComfyUI to the latest version!**
 
-Download or `git clone` this repository into the `ComfyUI/custom_nodes/` directory. I guess the Manager will soon have this added to the list.
+Download or `git clone` this repository into the `ComfyUI/custom_nodes/` directory or use the Manager.
 
 InstantID requires `insightface`, you need to add it to your libraries together with `onnxruntime` and `onnxruntime-gpu`.
 
@@ -44,6 +56,12 @@ The person is posed based on the keypoints generated from the reference image. Y
 
 <img src="examples/daydreaming.jpg" width="386" height="386" alt="Day Dreaming" />
 
+## Noise Injection
+
+The default InstantID implementation seems to really burn the image, I find that by injecting noise to the negative embeds we can mitigate the effect and also increase the likeliness to the reference. The default Apply InstantID node automatically injects 35% noise, if you want to fine tune the effect you can use the Advanced InstantID node.
+
+This is still experimental and may change in the future.
+
 ## Additional Controlnets
 
 You can add more controlnets to the generation. An example workflow for depth controlnet is provided.
@@ -62,11 +80,13 @@ Multi-ID is supported but the workflow is a bit complicated and the generation s
 
 ## Advanced Node
 
-There's an InstantID advanced node available, at the moment the only difference with the standard one is that you can set the weights for the instantID models and the controlnet separately. It might be helpful for finetuning.
+There's an InstantID advanced node available, at the moment the only difference with the standard one is that you can set the weights for the instantID models and the controlnet separately. It now also includes a noise injection option. It might be helpful for finetuning.
 
 The instantID model influences the composition of about 25%, the rest is the controlnet.
 
+The noise helps reducing the "burn" effect.
+
 ## Other notes
 
-It works very well with SDXL Turbo. Best results with community's checkpoints.
+It works very well with SDXL Turbo/Lighting. Best results with community's checkpoints.
 
