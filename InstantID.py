@@ -9,8 +9,6 @@ import PIL.Image
 from comfy.ldm.modules.attention import optimized_attention
 from .resampler import Resampler
 
-from insightface.app import FaceAnalysis
-
 import torchvision.transforms.v2 as T
 import torch.nn.functional as F
 
@@ -21,7 +19,11 @@ else:
     current_paths, _ = folder_paths.folder_names_and_paths["instantid"]
 folder_paths.folder_names_and_paths["instantid"] = (current_paths, folder_paths.supported_pt_extensions)
 
-INSIGHTFACE_DIR = os.path.join(folder_paths.models_dir, "insightface")
+if "insightface" in folder_paths.folder_names_and_paths:
+    INSIGHTFACE_DIR = folder_paths.folder_names_and_paths["insightface"][0][0]
+else:
+    INSIGHTFACE_DIR = os.path.join(folder_paths.models_dir, "insightface")
+
 
 def draw_kps(image_pil, kps, color_list=[(255,0,0), (0,255,0), (0,0,255), (255,255,0), (255,0,255)]):
     stickwidth = 4
@@ -357,6 +359,7 @@ class InstantIDFaceAnalysis:
     CATEGORY = "InstantID"
 
     def load_insight_face(self, provider):
+        from insightface.app import FaceAnalysis
         model = FaceAnalysis(name="antelopev2", root=INSIGHTFACE_DIR, providers=[provider + 'ExecutionProvider',]) # buffalo_l
         model.prepare(ctx_id=0, det_size=(640, 640))
 
