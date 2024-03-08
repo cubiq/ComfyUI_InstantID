@@ -9,8 +9,6 @@ import PIL.Image
 from comfy.ldm.modules.attention import optimized_attention
 from .resampler import Resampler
 
-from insightface.app import FaceAnalysis
-
 import torchvision.transforms.v2 as T
 import torch.nn.functional as F
 
@@ -361,6 +359,7 @@ class InstantIDFaceAnalysis:
     CATEGORY = "InstantID"
 
     def load_insight_face(self, provider):
+        from insightface.app import FaceAnalysis
         model = FaceAnalysis(name="antelopev2", root=INSIGHTFACE_DIR, providers=[provider + 'ExecutionProvider',]) # buffalo_l
         model.prepare(ctx_id=0, det_size=(640, 640))
 
