@@ -8,6 +8,7 @@ import cv2
 import PIL.Image
 from comfy.ldm.modules.attention import optimized_attention
 from .resampler import Resampler
+from .style_template import styles
 
 from insightface.app import FaceAnalysis
 
@@ -22,6 +23,9 @@ else:
 folder_paths.folder_names_and_paths["instantid"] = (current_paths, folder_paths.supported_pt_extensions)
 
 INSIGHTFACE_DIR = os.path.join(folder_paths.models_dir, "insightface")
+
+STYLE_NAMES = list(styles.keys())
+DEFAULT_STYLE_NAME = "Neon"
 
 def draw_kps(image_pil, kps, color_list=[(255,0,0), (0,255,0), (0,0,255), (255,255,0), (255,0,255)]):
     stickwidth = 4
@@ -766,6 +770,33 @@ class ApplyInstantIDControlNet:
 
         return(cond_uncond[0], cond_uncond[1])
 
+class InstantIDPrompt:
+    def __init__(self):
+        pass
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "prompt": ("STRING", {"default": "a woman, retro futurism, retro game", "multiline": True}),
+                "negative_prompt": ("STRING", {"default": "(lowres, low quality, worst quality:1.2), (text:1.2), watermark, painting, drawing, illustration, glitch, deformed, mutated, cross-eyed, ugly", "multiline": True}),
+                "style_name": (STYLE_NAMES, {"default": DEFAULT_STYLE_NAME})
+            }
+        }
+
+    RETURN_TYPES = ('CONDITIONING','CONDITIONING',)
+    RETURN_NAMES = ('positive_conditioning','negative_conditioning',)
+    FUNCTION = "id_prompt_style"
+    CATEGORY = "InstantID"
+
+    def apply_style(self, style_name: str, positive: str, negative: str = "") -> tuple[str, str]:
+        p, n = styles.get(style_name, styles[DEFAULT_STYLE_NAME])
+        return p.replace("{prompt}", positive), n + ' ' + negative
+
+    def id_prompt_style(self, style_name, prompt, negative_prompt):
+        prompt, negative_prompt = self.apply_style(style_name, prompt, negative_prompt)
+        
+        return prompt, negative_prompt
 
 NODE_CLASS_MAPPINGS = {
     "InstantIDModelLoader": InstantIDModelLoader,
@@ -776,6 +807,7 @@ NODE_CLASS_MAPPINGS = {
 
     "InstantIDAttentionPatch": InstantIDAttentionPatch,
     "ApplyInstantIDControlNet": ApplyInstantIDControlNet,
+    "InstantIDPrompt": InstantIDPrompt,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -787,4 +819,5 @@ NODE_DISPLAY_NAME_MAPPINGS = {
 
     "InstantIDAttentionPatch": "InstantID Patch Attention",
     "ApplyInstantIDControlNet": "InstantID Apply ControlNet",
+    "InstantIDPrompt": "InstantID Prompt",
 }
