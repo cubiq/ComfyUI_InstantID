@@ -1,6 +1,6 @@
 {
-  "last_node_id": 71,
-  "last_link_id": 226,
+  "last_node_id": 72,
+  "last_link_id": 231,
   "nodes": [
     {
       "id": 11,
@@ -362,6 +362,97 @@
       ]
     },
     {
+      "id": 3,
+      "type": "KSampler",
+      "pos": [
+        1540,
+        200
+      ],
+      "size": {
+        "0": 315,
+        "1": 262
+      },
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 231
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 200
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 201
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            7
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        1631591432,
+        "fixed",
+        30,
+        4.5,
+        "ddpm",
+        "karras",
+        1
+      ]
+    },
+    {
+      "id": 68,
+      "type": "IPAdapterModelLoader",
+      "pos": [
+        830,
+        -500
+      ],
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IPADAPTER",
+          "type": "IPADAPTER",
+          "links": [
+            227
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "IPAdapterModelLoader"
+      },
+      "widgets_values": [
+        "ip-adapter-plus_sdxl_vit-h.safetensors"
+      ]
+    },
+    {
       "id": 60,
       "type": "ApplyInstantID",
       "pos": [
@@ -427,7 +518,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            225
+            230
           ],
           "shape": 3,
           "slot_index": 0
@@ -461,38 +552,6 @@
       ]
     },
     {
-      "id": 68,
-      "type": "IPAdapterModelLoader",
-      "pos": [
-        830,
-        -500
-      ],
-      "size": {
-        "0": 315,
-        "1": 58
-      },
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "IPADAPTER",
-          "type": "IPADAPTER",
-          "links": [
-            222
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "IPAdapterModelLoader"
-      },
-      "widgets_values": [
-        "ip-adapter-plus_sdxl_vit-h.safetensors"
-      ]
-    },
-    {
       "id": 70,
       "type": "CLIPVisionLoader",
       "pos": [
@@ -511,82 +570,17 @@
           "name": "CLIP_VISION",
           "type": "CLIP_VISION",
           "links": [
-            223
-          ],
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CLIPVisionLoader"
-      },
-      "widgets_values": [
-        "IPAdapter_image_encoder_sd15.safetensors"
-      ]
-    },
-    {
-      "id": 69,
-      "type": "IPAdapterApply",
-      "pos": [
-        1243,
-        -287
-      ],
-      "size": {
-        "0": 315,
-        "1": 258
-      },
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "ipadapter",
-          "type": "IPADAPTER",
-          "link": 222
-        },
-        {
-          "name": "clip_vision",
-          "type": "CLIP_VISION",
-          "link": 223,
-          "slot_index": 1
-        },
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 224,
-          "slot_index": 2
-        },
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 225
-        },
-        {
-          "name": "attn_mask",
-          "type": "MASK",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            226
+            228
           ],
           "shape": 3,
           "slot_index": 0
         }
       ],
       "properties": {
-        "Node name for S&R": "IPAdapterApply"
+        "Node name for S&R": "CLIPVisionLoader"
       },
       "widgets_values": [
-        0.45,
-        0,
-        "original",
-        0,
-        1,
-        false
+        "CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors"
       ]
     },
     {
@@ -596,10 +590,10 @@
         830,
         -280
       ],
-      "size": [
-        315,
-        314
-      ],
+      "size": {
+        "0": 315,
+        "1": 314
+      },
       "flags": {},
       "order": 8,
       "mode": 0,
@@ -608,9 +602,10 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            224
+            229
           ],
-          "shape": 3
+          "shape": 3,
+          "slot_index": 0
         },
         {
           "name": "MASK",
@@ -623,67 +618,77 @@
         "Node name for S&R": "LoadImage"
       },
       "widgets_values": [
-        "SDXL_00624_.png",
+        "anime_colorful.png",
         "image"
       ]
     },
     {
-      "id": 3,
-      "type": "KSampler",
+      "id": 72,
+      "type": "IPAdapterAdvanced",
       "pos": [
-        1540,
-        200
+        1226,
+        -337
       ],
       "size": {
         "0": 315,
-        "1": 262
+        "1": 278
       },
       "flags": {},
-      "order": 13,
+      "order": 12,
       "mode": 0,
       "inputs": [
         {
           "name": "model",
           "type": "MODEL",
-          "link": 226
+          "link": 230
         },
         {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 200
+          "name": "ipadapter",
+          "type": "IPADAPTER",
+          "link": 227
         },
         {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 201
+          "name": "image",
+          "type": "IMAGE",
+          "link": 229
         },
         {
-          "name": "latent_image",
-          "type": "LATENT",
-          "link": 2
+          "name": "image_negative",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "attn_mask",
+          "type": "MASK",
+          "link": null
+        },
+        {
+          "name": "clip_vision",
+          "type": "CLIP_VISION",
+          "link": 228
         }
       ],
       "outputs": [
         {
-          "name": "LATENT",
-          "type": "LATENT",
+          "name": "MODEL",
+          "type": "MODEL",
           "links": [
-            7
+            231
           ],
+          "shape": 3,
           "slot_index": 0
         }
       ],
       "properties": {
-        "Node name for S&R": "KSampler"
+        "Node name for S&R": "IPAdapterAdvanced"
       },
       "widgets_values": [
-        1631591432,
-        "fixed",
-        30,
-        4.5,
-        "ddpm",
-        "karras",
-        1
+        0.5,
+        "linear",
+        "concat",
+        0,
+        1,
+        "V only"
       ]
     }
   ],
@@ -809,40 +814,40 @@
       "IMAGE"
     ],
     [
-      222,
+      227,
       68,
       0,
-      69,
-      0,
+      72,
+      1,
       "IPADAPTER"
     ],
     [
-      223,
+      228,
       70,
       0,
-      69,
-      1,
+      72,
+      5,
       "CLIP_VISION"
     ],
     [
-      224,
+      229,
       71,
       0,
-      69,
+      72,
       2,
       "IMAGE"
     ],
     [
-      225,
+      230,
       60,
       0,
-      69,
-      3,
+      72,
+      0,
       "MODEL"
     ],
     [
-      226,
-      69,
+      231,
+      72,
       0,
       3,
       0,
