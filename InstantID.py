@@ -164,7 +164,7 @@ def extractFeatures(insightface, image, extract_kps=False):
             insightface.det_model.input_size = size # TODO: hacky but seems to be working
             face = insightface.get(face_img[i])
             if face:
-                face = sorted(face, key=lambda x:(x['bbox'][2]-x['bbox'][0])*x['bbox'][3]-x['bbox'][1])[-1]
+                face = sorted(face, key=lambda x:(x['bbox'][2]-x['bbox'][0])*(x['bbox'][3]-x['bbox'][1]))[-1]
 
                 if extract_kps:
                     out.append(draw_kps(face_img[i], face['kps']))
