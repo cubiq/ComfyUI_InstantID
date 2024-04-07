@@ -608,8 +608,6 @@ class ApplyInstantIDControlNet:
             cond_uncond.append(c)
             is_cond = False
 
-            print(cond_uncond[0])
-
         return(cond_uncond[0], cond_uncond[1])
 
 
