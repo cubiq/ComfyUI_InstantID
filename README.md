@@ -4,6 +4,28 @@ Native [InstantID](https://github.com/InstantID/InstantID) support for [ComfyUI]
 
 This extension differs from the many already available as it doesn't use *diffusers* but instead implements InstantID natively and it fully integrates with ComfyUI.
 
+# Sponsorship
+
+<div align="center">
+
+**[:heart: Github Sponsor](https://github.com/sponsors/cubiq) | [:coin: Paypal](https://paypal.me/matt3o)**
+
+</div>
+
+If you like my work and wish to see updates and new features please consider sponsoring my projects.
+
+- [ComfyUI IPAdapter Plus](https://github.com/cubiq/ComfyUI_IPAdapter_plus)
+- [ComfyUI InstantID (Native)](https://github.com/cubiq/ComfyUI_InstantID)
+- [ComfyUI Essentials](https://github.com/cubiq/ComfyUI_essentials)
+- [ComfyUI FaceAnalysis](https://github.com/cubiq/ComfyUI_FaceAnalysis)
+- [Comfy Dungeon](https://github.com/cubiq/Comfy_Dungeon)
+
+Not to mention the documentation and videos tutorials. Check my **ComfyUI Advanced Understanding** videos on YouTube for example, [part 1](https://www.youtube.com/watch?v=_C7kR2TFIX0) and [part 2](https://www.youtube.com/watch?v=ijqXnW_9gzc)
+
+The only way to keep the code open and free is by sponsoring its development. The more sponsorships the more time I can dedicate to my open source projects.
+
+Please consider a [Github Sponsorship](https://github.com/sponsors/cubiq) or [PayPal donation](https://paypal.me/matt3o) (Matteo "matt3o" Spinelli). For sponsorships of $50+, let me know if you'd like to be mentioned in this readme file, you can find me on [Discord](https://latent.vision/discord) or _matt3o :snail: gmail.com_.
+
 ## Important updates
 
 - **2024/02/27:** Added [noise injection](#noise-injection) in the negative embeds.
@@ -90,3 +112,23 @@ The noise helps reducing the "burn" effect.
 
 It works very well with SDXL Turbo/Lighting. Best results with community's checkpoints.
 
+## Current sponsors
+
+It's only thanks to generous sponsors that **the whole community** can enjoy open and free software. Please join me in thanking the following companies and individuals!
+
+### Gold sponsors
+
+[![Kaiber.ai](https://f.latent.vision/imgs/kaiber.png)](https://kaiber.ai/)
+
+### Esteemed individuals
+
+- [Jack Gane](https://github.com/ganeJackS)
+- [Nathan Shipley](https://www.nathanshipley.com/)
+
+### One-time Extraordinaire
+
+- [Eric Rollei](https://github.com/EricRollei)
+- [francaleu](https://github.com/francaleu)
+- [Neta.art](https://github.com/talesofai)
+- [Samwise Wang](https://github.com/tzwm)
+- _And all private sponsors, you know who you are!_

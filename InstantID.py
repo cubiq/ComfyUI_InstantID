@@ -263,7 +263,7 @@ class ApplyInstantID:
     FUNCTION = "apply_instantid"
     CATEGORY = "InstantID"
 
-    def apply_instantid(self, instantid, insightface, control_net, image, model, positive, negative, start_at, end_at, weight=.8, ip_weight=None, cn_strength=None, noise=0.35, image_kps=None, mask=None, combine_embeds='average'):
+    def apply_instantid(self, instantid, insightface, control_net, image, model, positive, negative, start_at, end_at, weight=.8, ip_weight=None, cn_strength=None, noise=0.35, image_kps=None, mask=None, combine_embeds='average', layer=0):
         self.dtype = torch.float16 if comfy.model_management.should_use_fp16() else torch.float32
         self.device = comfy.model_management.get_torch_device()
 
@@ -322,8 +322,8 @@ class ApplyInstantID:
 
         work_model = model.clone()
 
-        sigma_start = work_model.model.model_sampling.percent_to_sigma(start_at)
-        sigma_end = work_model.model.model_sampling.percent_to_sigma(end_at)
+        sigma_start = model.get_model_object("model_sampling").percent_to_sigma(start_at)
+        sigma_end = model.get_model_object("model_sampling").percent_to_sigma(end_at)
 
         if mask is not None:
             mask = mask.to(self.device)
@@ -337,6 +337,7 @@ class ApplyInstantID:
             "mask": mask,
             "sigma_start": sigma_start,
             "sigma_end": sigma_end,
+            "cond_alt": layer,
         }
 
         if not is_sdxl:
@@ -416,6 +417,7 @@ class ApplyInstantIDAdvanced(ApplyInstantID):
                 "end_at": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 1.0, "step": 0.001, }),
                 "noise": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.1, }),
                 "combine_embeds": (['average', 'norm average', 'concat'], {"default": 'average'}),
+                "layer": ("INT", {"default": 0, "min": 0, "max": 11, "step": 1, }),
             },
             "optional": {
                 "image_kps": ("IMAGE",),
@@ -494,8 +496,8 @@ class InstantIDAttentionPatch:
 
         work_model = model.clone()
 
-        sigma_start = work_model.model.model_sampling.percent_to_sigma(start_at)
-        sigma_end = work_model.model.model_sampling.percent_to_sigma(end_at)
+        sigma_start = model.get_model_object("model_sampling").percent_to_sigma(start_at)
+        sigma_end = model.get_model_object("model_sampling").percent_to_sigma(end_at)
 
         if mask is not None:
             mask = mask.to(self.device)
