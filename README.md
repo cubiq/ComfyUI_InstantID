@@ -120,6 +120,10 @@ It's only thanks to generous sponsors that **the whole community** can enjoy ope
 
 [![Kaiber.ai](https://f.latent.vision/imgs/kaiber.png)](https://kaiber.ai/)
 
+### Companies supporting my projects
+
+- [RunComfy](https://www.runcomfy.com/) (ComfyUI Cloud)
+
 ### Esteemed individuals
 
 - [Jack Gane](https://github.com/ganeJackS)
