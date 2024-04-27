@@ -118,7 +118,7 @@ It's only thanks to generous sponsors that **the whole community** can enjoy ope
 
 ### Gold sponsors
 
-[![Kaiber.ai](https://f.latent.vision/imgs/kaiber.png)](https://kaiber.ai/)
+[![Kaiber.ai](https://f.latent.vision/imgs/kaiber.png)](https://kaiber.ai/)&nbsp; &nbsp;[![Kaiber.ai](https://f.latent.vision/imgs/replicate.png)](https://replicate.com/)
 
 ### Companies supporting my projects
 
