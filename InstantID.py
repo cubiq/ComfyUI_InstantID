@@ -7,7 +7,7 @@ import math
 import cv2
 import PIL.Image
 from .resampler import Resampler
-from .CrossAttentionPatch import CrossAttentionPatch
+from .CrossAttentionPatch import Attn2Replace, instantid_attention
 from .utils import tensor_to_image
 
 from insightface.app import FaceAnalysis
@@ -118,15 +118,22 @@ class To_KV(torch.nn.Module):
             self.to_kvs[k].weight.data = value
 
 def _set_model_patch_replace(model, patch_kwargs, key):
-    to = model.model_options["transformer_options"]
+    to = model.model_options["transformer_options"].copy()
     if "patches_replace" not in to:
         to["patches_replace"] = {}
+    else:
+        to["patches_replace"] = to["patches_replace"].copy()
+
     if "attn2" not in to["patches_replace"]:
         to["patches_replace"]["attn2"] = {}
-    if key not in to["patches_replace"]["attn2"]:
-        to["patches_replace"]["attn2"][key] = CrossAttentionPatch(**patch_kwargs)
     else:
-        to["patches_replace"]["attn2"][key].set_new_condition(**patch_kwargs)
+        to["patches_replace"]["attn2"] = to["patches_replace"]["attn2"].copy()
+    
+    if key not in to["patches_replace"]["attn2"]:
+        to["patches_replace"]["attn2"][key] = Attn2Replace(instantid_attention, **patch_kwargs)
+        model.model_options["transformer_options"] = to
+    else:
+        to["patches_replace"]["attn2"][key].add(instantid_attention, **patch_kwargs)
 
 class InstantIDModelLoader:
     @classmethod
@@ -330,7 +337,6 @@ class ApplyInstantID:
 
         patch_kwargs = {
             "ipadapter": self.instantid,
-            "number": 0,
             "weight": ip_weight,
             "cond": image_prompt_embeds,
             "uncond": uncond_image_prompt_embeds,
@@ -339,28 +345,23 @@ class ApplyInstantID:
             "sigma_end": sigma_end,
         }
 
-        if not is_sdxl:
-            for id in [1,2,4,5,7,8]: # id of input_blocks that have cross attention
-                _set_model_patch_replace(work_model, patch_kwargs, ("input", id))
-                patch_kwargs["number"] += 1
-            for id in [3,4,5,6,7,8,9,10,11]: # id of output_blocks that have cross attention
-                _set_model_patch_replace(work_model, patch_kwargs, ("output", id))
-                patch_kwargs["number"] += 1
-            _set_model_patch_replace(work_model, patch_kwargs, ("middle", 0))
-        else:
-            for id in [4,5,7,8]: # id of input_blocks that have cross attention
-                block_indices = range(2) if id in [4, 5] else range(10) # transformer_depth
-                for index in block_indices:
-                    _set_model_patch_replace(work_model, patch_kwargs, ("input", id, index))
-                    patch_kwargs["number"] += 1
-            for id in range(6): # id of output_blocks that have cross attention
-                block_indices = range(2) if id in [3, 4, 5] else range(10) # transformer_depth
-                for index in block_indices:
-                    _set_model_patch_replace(work_model, patch_kwargs, ("output", id, index))
-                    patch_kwargs["number"] += 1
-            for index in range(10):
-                _set_model_patch_replace(work_model, patch_kwargs, ("middle", 0, index))
-                patch_kwargs["number"] += 1
+        number = 0
+        for id in [4,5,7,8]: # id of input_blocks that have cross attention
+            block_indices = range(2) if id in [4, 5] else range(10) # transformer_depth
+            for index in block_indices:
+                patch_kwargs["module_key"] = str(number*2+1)
+                _set_model_patch_replace(work_model, patch_kwargs, ("input", id, index))
+                number += 1
+        for id in range(6): # id of output_blocks that have cross attention
+            block_indices = range(2) if id in [3, 4, 5] else range(10) # transformer_depth
+            for index in block_indices:
+                patch_kwargs["module_key"] = str(number*2+1)
+                _set_model_patch_replace(work_model, patch_kwargs, ("output", id, index))
+                number += 1
+        for index in range(10):
+            patch_kwargs["module_key"] = str(number*2+1)
+            _set_model_patch_replace(work_model, patch_kwargs, ("middle", 0, index))
+            number += 1
 
         # 2: do the ControlNet
         if mask is not None and len(mask.shape) < 3:
@@ -501,7 +502,6 @@ class InstantIDAttentionPatch:
             mask = mask.to(self.device)
 
         patch_kwargs = {
-            "number": 0,
             "weight": weight,
             "ipadapter": self.instantid,
             "cond": image_prompt_embeds,
@@ -511,28 +511,23 @@ class InstantIDAttentionPatch:
             "sigma_end": sigma_end,
         }
 
-        if not is_sdxl:
-            for id in [1,2,4,5,7,8]: # id of input_blocks that have cross attention
-                _set_model_patch_replace(work_model, patch_kwargs, ("input", id))
-                patch_kwargs["number"] += 1
-            for id in [3,4,5,6,7,8,9,10,11]: # id of output_blocks that have cross attention
-                _set_model_patch_replace(work_model, patch_kwargs, ("output", id))
-                patch_kwargs["number"] += 1
-            _set_model_patch_replace(work_model, patch_kwargs, ("middle", 0))
-        else:
-            for id in [4,5,7,8]: # id of input_blocks that have cross attention
-                block_indices = range(2) if id in [4, 5] else range(10) # transformer_depth
-                for index in block_indices:
-                    _set_model_patch_replace(work_model, patch_kwargs, ("input", id, index))
-                    patch_kwargs["number"] += 1
-            for id in range(6): # id of output_blocks that have cross attention
-                block_indices = range(2) if id in [3, 4, 5] else range(10) # transformer_depth
-                for index in block_indices:
-                    _set_model_patch_replace(work_model, patch_kwargs, ("output", id, index))
-                    patch_kwargs["number"] += 1
-            for index in range(10):
-                _set_model_patch_replace(work_model, patch_kwargs, ("middle", 0, index))
-                patch_kwargs["number"] += 1
+        number = 0
+        for id in [4,5,7,8]: # id of input_blocks that have cross attention
+            block_indices = range(2) if id in [4, 5] else range(10) # transformer_depth
+            for index in block_indices:
+                patch_kwargs["module_key"] = str(number*2+1)
+                _set_model_patch_replace(work_model, patch_kwargs, ("input", id, index))
+                number += 1
+        for id in range(6): # id of output_blocks that have cross attention
+            block_indices = range(2) if id in [3, 4, 5] else range(10) # transformer_depth
+            for index in block_indices:
+                patch_kwargs["module_key"] = str(number*2+1)
+                _set_model_patch_replace(work_model, patch_kwargs, ("output", id, index))
+                number += 1
+        for index in range(10):
+            patch_kwargs["module_key"] = str(number*2+1)
+            _set_model_patch_replace(work_model, patch_kwargs, ("middle", 0, index))
+            number += 1
 
         return(work_model, { "cond": image_prompt_embeds, "uncond": uncond_image_prompt_embeds }, )
 
