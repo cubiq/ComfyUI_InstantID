@@ -158,7 +158,7 @@ class InstantIDModelLoader:
                     st_model["ip_adapter"][key.replace("ip_adapter.", "")] = model[key]
             model = st_model
 
-        instant_id_model = InstantID(
+        model = InstantID(
             model,
             cross_attention_dim=1280,
             output_cross_attention_dim=model["ip_adapter"]["1.to_k_ip.weight"].shape[1],
@@ -166,7 +166,7 @@ class InstantIDModelLoader:
             clip_extra_context_tokens=16,
         )
 
-        return (instant_id_model,)
+        return (model,)
 
 def extractFeatures(insightface, image, extract_kps=False):
     face_img = tensor_to_image(image)
