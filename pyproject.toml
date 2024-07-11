@@ -1,6 +1,6 @@
 [project]
 name = "comfyui_instantid"
-description = "Native [a/InstantID](https://github.com/InstantID/InstantID) support for ComfyUI.\nThis extension differs from the many already available as it doesn't use diffusers but instead implements InstantID natively and it fully integrates with ComfyUI.\nPlease note this still could be considered beta stage, looking forward to your feedback."
+description = "Native InstantID support for ComfyUI. This extension differs from the many already available as it doesn't use diffusers but instead implements InstantID natively and it fully integrates with ComfyUI."
 version = "1.0.0"
 license = "LICENSE"
 dependencies = ["insightface", "onnxruntime", "onnxruntime-gpu"]
@@ -10,6 +10,6 @@ Repository = "https://github.com/cubiq/ComfyUI_InstantID"
 #  Used by Comfy Registry https://comfyregistry.org
 
 [tool.comfy]
-PublisherId = ""
+PublisherId = "matteo"
 DisplayName = "ComfyUI_InstantID"
 Icon = ""
