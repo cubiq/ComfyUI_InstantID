@@ -354,7 +354,7 @@ class ApplyInstantID:
                 number += 1
         for index in range(10):
             patch_kwargs["module_key"] = str(number*2+1)
-            _set_model_patch_replace(work_model, patch_kwargs, ("middle", 0, index))
+            _set_model_patch_replace(work_model, patch_kwargs, ("middle", 1, index))
             number += 1
 
         # 2: do the ControlNet
