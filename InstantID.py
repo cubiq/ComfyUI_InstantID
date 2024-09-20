@@ -279,7 +279,11 @@ class ApplyInstantID:
     CATEGORY = "InstantID"
 
     def apply_instantid(self, instantid, insightface, control_net, image, model, positive, negative, start_at, end_at, weight=.8, ip_weight=None, cn_strength=None, noise=0.35, image_kps=None, mask=None, combine_embeds='average'):
-        self.dtype = torch.float16 if comfy.model_management.should_use_fp16() else torch.float32
+        dtype = comfy.model_management.unet_dtype()
+        if dtype not in [torch.float32, torch.float16, torch.bfloat16]:
+            dtype = torch.float16 if comfy.model_management.should_use_fp16() else torch.float32
+        
+        self.dtype = dtype
         self.device = comfy.model_management.get_torch_device()
 
         ip_weight = weight if ip_weight is None else ip_weight
@@ -380,7 +384,7 @@ class ApplyInstantID:
 
                 d['control'] = c_net
                 d['control_apply_to_uncond'] = False
-                d['cross_attn_controlnet'] = image_prompt_embeds.to(comfy.model_management.intermediate_device()) if is_cond else uncond_image_prompt_embeds.to(comfy.model_management.intermediate_device())
+                d['cross_attn_controlnet'] = image_prompt_embeds.to(comfy.model_management.intermediate_device(), dtype=c_net.cond_hint_original.dtype) if is_cond else uncond_image_prompt_embeds.to(comfy.model_management.intermediate_device(), dtype=c_net.cond_hint_original.dtype)
 
                 if mask is not None and is_cond:
                     d['mask'] = mask
