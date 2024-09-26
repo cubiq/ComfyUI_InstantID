@@ -1,3 +1,4 @@
 insightface
 onnxruntime
 onnxruntime-gpu; sys_platform != 'darwin' and platform_machine == 'x86_64'
+onnxruntime-silicon; sys_platform == 'darwin'
