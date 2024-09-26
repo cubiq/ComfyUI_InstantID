@@ -1,5 +1,8 @@
 # ComfyUI InstantID (Native Support)
 
+## Translations
+- [简体中文 (Simplified Chinese)](./README.zh-CN.md)
+
 Native [InstantID](https://github.com/InstantID/InstantID) support for [ComfyUI](https://github.com/comfyanonymous/ComfyUI).
 
 This extension differs from the many already available as it doesn't use *diffusers* but instead implements InstantID natively and it fully integrates with ComfyUI.
