@@ -1,7 +1,7 @@
 [project]
 name = "comfyui_instantid"
 description = "Native InstantID support for ComfyUI. This extension differs from the many already available as it doesn't use diffusers but instead implements InstantID natively and it fully integrates with ComfyUI."
-version = "1.0.0"
+version = "1.1.0"
 license = "LICENSE"
 dependencies = ["insightface", "onnxruntime", "onnxruntime-gpu"]
 
