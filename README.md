@@ -40,6 +40,47 @@ You also needs a [controlnet](https://huggingface.co/InstantX/InstantID/resolve/
 
 **Remember at the moment this is only for SDXL.**
 
+## Troubleshooting
+
+### **I. (For Windows Users) Unable to Build Insightface or Avoiding Visual Studio/VS C++ Build Tools**
+If you're having trouble building `Insightface` or prefer not to install Visual Studio/VS C++ Build Tools, follow these steps:
+
+1. **Check Your Python Version**:
+   - If using ComfyUI Portable, navigate to the root folder.
+   - Open CMD and run:  
+     ```cmd
+     python_embeded\python.exe -V
+     ```  
+2. **Download the Prebuilt Insightface Package**:
+   - Based on your Python version, download the appropriate `.whl` file:  
+     - [For Python 3.10](https://github.com/Gourieff/Assets/raw/main/Insightface/insightface-0.7.3-cp310-cp310-win_amd64.whl)  
+     - [For Python 3.11](https://github.com/Gourieff/Assets/raw/main/Insightface/insightface-0.7.3-cp311-cp311-win_amd64.whl)  
+     - [For Python 3.12](https://github.com/Gourieff/Assets/raw/main/Insightface/insightface-0.7.3-cp312-cp312-win_amd64.whl)  
+   - Place the downloaded file into the ComfyUI root folder if using ComfyUI Portable.
+3. **Run Command Prompt (CMD) from the Root Folder**:
+   - For ComfyUI Portable, simply open CMD from the root folder.
+4. **Update PIP**:
+   - Run the following command:  
+     ```cmd
+     python_embeded\python.exe -m pip install -U pip
+     ```  
+5. **Install the Insightface Package**:
+   - Use the command corresponding to your Python version:  
+     - For Python 3.10:  
+       ```cmd
+       python_embeded\python.exe -m pip install insightface-0.7.3-cp310-cp310-win_amd64.whl
+       ```  
+     - For Python 3.11:  
+       ```cmd
+       python_embeded\python.exe -m pip install insightface-0.7.3-cp311-cp311-win_amd64.whl
+       ```  
+     - For Python 3.12:  
+       ```cmd
+       python_embeded\python.exe -m pip install insightface-0.7.3-cp312-cp312-win_amd64.whl
+       ```
+6. **Done**:  
+   Enjoy using Insightface with your setup!
+
 ## Watermarks!
 
 The training data is full of watermarks, to avoid them to show up in your generations use a resolution slightly different from 1024×1024 (or the standard ones) for example **1016×1016** works pretty well.
